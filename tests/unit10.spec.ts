@@ -15,7 +15,7 @@ test('Login with valid credentials', async ({ page }) => {
     await expect(page).toHaveURL('https://practicesoftwaretesting.com/account');
 
     //Check for the page title to be "My Account"
-    await expect(page.locator('[data-test="page-title"]')).toHaveText('My account');
+    await expect(page.locator('[data-test="page-title"]')).toHaveText('My account', { timeout: 10000 });
 
     //Check username in the navigation bar to be "Jane Doe"
     await expect(page.locator('[data-test="nav-menu"]')).toHaveText('Jane Doe');
