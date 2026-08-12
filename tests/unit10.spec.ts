@@ -11,6 +11,9 @@ test('Login with valid credentials', async ({ page }) => {
     // Click the Login button
     await page.getByRole('button', { name: 'Login' }).click();
 
+    console.log('URL after login:', page.url());
+    console.log('Page content:', await page.locator('body').innerText());
+
     //Check for the page URL to be https://practicesoftwaretesting.com/account
     await expect(page).toHaveURL('https://practicesoftwaretesting.com/account');
 
