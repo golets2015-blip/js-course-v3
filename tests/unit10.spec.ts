@@ -9,7 +9,16 @@ test('Login with valid credentials', async ({ page }) => {
     await page.getByPlaceholder('Your password').fill('welcome01');
 
     // Click the Login button
+    const responsePromise = page.waitForResponse(
+    response => response.url().includes('/users/login')
+);
+
     await page.getByRole('button', { name: 'Login' }).click();
+
+    const response = await responsePromise;
+
+    console.log('LOGIN STATUS:', response.status());
+    console.log('LOGIN RESPONSE:', await response.text());
 
     console.log('URL after login:', page.url());
     console.log('Page content:', await page.locator('body').innerText());
