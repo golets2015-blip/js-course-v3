@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('Login with valid credentials', async ({ page }) => {
-    await page.goto('https://practicesoftwaretesting.com/auth/login');
+    await page.goto('/auth/login');
 
     // Fill in credentials
     await page.getByPlaceholder('Your email')
@@ -15,15 +15,15 @@ test('Login with valid credentials', async ({ page }) => {
 
     // Verify URL
     await expect(page)
-        .toHaveURL('https://practicesoftwaretesting.com/account');
+        .toHaveURL('/account');
 
     // Verify page title
     await expect(
-        page.locator('[data-test="page-title"]')
+        page.getByTestId('page-title')
     ).toHaveText('My account');
 
     // Verify username in the navigation bar
     await expect(
-        page.locator('[data-test="nav-menu"]')
+        page.getByTestId('nav-menu')
     ).toHaveText('Jane Doe');
 });
