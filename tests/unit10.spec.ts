@@ -21,6 +21,9 @@ test('Login with valid credentials', async ({ page }) => {
   );
 
   // Verify page title
+  console.log('URL AFTER ACCOUNT:', page.url());
+  console.log('ACCOUNT BODY:', await page.locator('body').innerText());
+
   await expect(
     page.locator('[data-test="page-title"]')
   ).toHaveText('My account');
