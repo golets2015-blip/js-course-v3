@@ -16,7 +16,5 @@ export class ProductPage {
         this.unitPrice = page.getByTestId('unit-price');
         this.addToCart = page.getByTestId('add-to-cart');
         this.addToFavorites = page.getByTestId('add-to-favorites');
-
     }
-
 }

@@ -13,7 +13,7 @@ test('Login with valid credentials', async ({ page }) => {
     const accountPage = new AccountPage(page);
 
     // Go to "Login" page
-    await homePage.header.performSignIn();
+    await homePage.header.clickSignIn();
 
     // Fill in credentials and click login button
     await loginPage.performLogin('customer@practicesoftwaretesting.com', 'welcome01');

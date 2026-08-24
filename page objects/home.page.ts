@@ -12,7 +12,7 @@ export class HomePage {
         this.productName = page.getByTestId('product-name');
     }
 
-    async clickProduct (): Promise <void> {
-        await this.productName.filter({ hasText: 'Combination Pliers' }).click();
+    async clickProduct (productName: string): Promise <void> {
+        await this.productName.filter({ hasText: productName }).click();
     }
 }

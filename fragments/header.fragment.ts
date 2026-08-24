@@ -16,10 +16,10 @@ export class HeaderFragment {
         this.contactButton = page.getByTestId('nav-contact');
         this.signInButton = page.getByTestId('nav-sign-in');
         this.languageSelector = page.getByTestId('language-select');
-        this.navMenu = page.getByTestId('nav-menu')
+        this.navMenu = page.getByTestId('nav-menu');
     }
 
-    async performSignIn (): Promise <void> {
+    async clickSignIn (): Promise <void> {
         await this.signInButton.click();
     }
 }

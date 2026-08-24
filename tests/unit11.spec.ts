@@ -9,14 +9,16 @@ test('Verify user can view product details', async ({ page }) => {
 
     const productPage = new ProductPage(page);
 
+    const productName = 'Combination Pliers';
+
     //Click on the product "Combination Pliers".
-    await homePage.clickProduct();
+    await homePage.clickProduct(productName);
 
     // Verify URL
     await expect(page).toHaveURL(/product/);
 
     //Verify product name
-    await expect(productPage.productName).toHaveText('Combination Pliers')
+    await expect(productPage.productName).toHaveText(productName)
 
     //Verify product price
     await expect(productPage.unitPrice).toHaveText('14.15');
@@ -26,5 +28,4 @@ test('Verify user can view product details', async ({ page }) => {
 
     //Verify "Add to Favorites" button is visible.
     await expect(productPage.addToFavorites).toBeVisible();
-
 })
