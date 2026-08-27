@@ -1,29 +1,30 @@
 import { test, expect } from '@playwright/test';
+import { LoginPage } from '../page objects/login.page';
+import { AccountPage } from '../page objects/account.page';
+import { HomePage } from '../page objects/home.page';
 
 test('Login with valid credentials', async ({ page }) => {
-    await page.goto('/auth/login');
+    await page.goto('/');
 
-    // Fill in credentials
-    await page.getByPlaceholder('Your email')
-        .fill('customer@practicesoftwaretesting.com');
+    const homePage = new HomePage(page);
 
-    await page.getByPlaceholder('Your password')
-        .fill('welcome01');
+    const loginPage = new LoginPage(page);
 
-    // Click the Login button
-    await page.getByRole('button', { name: 'Login' }).click();
+    const accountPage = new AccountPage(page);
+
+    // Go to "Login" page
+    await homePage.header.clickSignIn();
+
+    // Fill in credentials and click login button
+    await loginPage.performLogin('customer@practicesoftwaretesting.com', 'welcome01');
 
     // Verify URL
     await expect(page)
         .toHaveURL('/account');
 
     // Verify page title
-    await expect(
-        page.getByTestId('page-title')
-    ).toHaveText('My account');
+    await expect(accountPage.pageTitle).toHaveText('My account');
 
     // Verify username in the navigation bar
-    await expect(
-        page.getByTestId('nav-menu')
-    ).toHaveText('Jane Doe');
+    await expect(accountPage.header.navMenu).toHaveText('Jane Doe');
 });
