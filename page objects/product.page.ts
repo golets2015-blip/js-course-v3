@@ -17,4 +17,12 @@ export class ProductPage {
         this.addToCart = page.getByTestId('add-to-cart');
         this.addToFavorites = page.getByTestId('add-to-favorites');
     }
+    
+    async clickAddToCart () {
+        await this.page.getByTestId('add-to-cart').click();
+    }
+
+    async clickCartIcon () {
+        await this.header.cartIcon.click();
+    }
 }
