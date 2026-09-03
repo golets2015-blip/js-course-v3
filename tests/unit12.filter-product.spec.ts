@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { HomePage } from '../page objects/home.page';
-import { PowerTools } from '../enum/categories.enum';
+import { PowerTools } from '../testData/categories.enum';
 
 
 test('Verify user can filter products by category', async ({ page }) => {

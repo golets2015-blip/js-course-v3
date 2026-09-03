@@ -43,6 +43,7 @@ export default defineConfig({
         storageState: 'playwright/.auth/user.json',
         ...devices['Desktop Chrome'] },
       dependencies: ['perform-login'],
+      testIgnore: /auth-setup\.spec\.ts/
     },
 
     {
@@ -51,6 +52,7 @@ export default defineConfig({
         storageState: 'playwright/.auth/user.json',
         ...devices['Desktop Firefox'] },
       dependencies: ['perform-login'],
+      testIgnore: /auth-setup\.spec\.ts/
     },
 
     {
@@ -59,6 +61,7 @@ export default defineConfig({
         storageState: 'playwright/.auth/user.json',
         ...devices['Desktop Safari'] },
       dependencies: ['perform-login'],
+      testIgnore: /auth-setup\.spec\.ts/
     },
 
     /* Test against mobile viewports. */

@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { HomePage } from '../page objects/home.page';
 import { LoginPage } from '../page objects/login.page';
+import { user } from '../testData/users'
 import path from 'path';
 
 const authFile = path.join(__dirname, '../playwright/.auth/user.json');
@@ -15,7 +16,7 @@ test('Verify Login', async({page}) => {
     await homePage.header.clickSignIn();
 
     // Fill in credentials and click login button
-    await loginPage.performLogin('customer2@practicesoftwaretesting.com', 'welcome01');
+    await loginPage.performLogin(user.email, user.password);
 
     // Verify URL
     await expect(page).toHaveURL('/account');

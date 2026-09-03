@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { HomePage } from '../page objects/home.page';
 import { ProductPage } from '../page objects/product.page';
 import { CheckoutPage } from '../page objects/checkout.page';
+import { BasePage } from '../page objects/base.page';
 
 test('Verify user can add product to cart', async ({page}) => {
     await page.goto('/');
@@ -12,9 +13,11 @@ test('Verify user can add product to cart', async ({page}) => {
 
     const checkoutPage = new CheckoutPage(page);
 
+    const basePage = new BasePage(page);
+
     const productName = 'Slip Joint Pliers';
 
-    const alertMessage = page.getByRole('alert');
+    const alertMessage = basePage.alertMessage;
 
     //Click on the product "Slip Joint Pliers".
     await homePage.clickProduct(productName);
