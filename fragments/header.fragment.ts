@@ -8,6 +8,8 @@ export class HeaderFragment {
     signInButton: Locator;
     languageSelector: Locator;
     navMenu: Locator;
+    cartIcon: Locator;
+    cartQuantity: Locator;
 
     constructor (page: Page) {
         this.page = page;
@@ -17,6 +19,8 @@ export class HeaderFragment {
         this.signInButton = page.getByTestId('nav-sign-in');
         this.languageSelector = page.getByTestId('language-select');
         this.navMenu = page.getByTestId('nav-menu');
+        this.cartIcon = page.getByTestId('nav-cart');
+        this.cartQuantity = page.getByTestId('cart-quantity');
     }
 
     async clickSignIn (): Promise <void> {
