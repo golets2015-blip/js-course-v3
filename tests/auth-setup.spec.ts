@@ -1,26 +1,20 @@
-import { test, expect } from '@playwright/test';
-import { HomePage } from '../page objects/home.page';
-import { LoginPage } from '../page objects/login.page';
-import { user } from '../testData/users'
+import { test } from '../fixtures/fixtures';
+import { expect } from '@playwright/test';
+import { user } from '../testData/users';
 import path from 'path';
 
 const authFile = path.join(__dirname, '../playwright/.auth/user.json');
 
-test('Verify Login', async({page}) => {
-    await page.goto('/');
+test('Verify Login', async({app}) => {
+    await app.page.goto('/');
 
-    const homePage = new HomePage(page);
-    const loginPage = new LoginPage(page);
+    await app.homePage.header.clickSignIn();
 
-    // Go to "Login" page
-    await homePage.header.clickSignIn();
-
-    // Fill in credentials and click login button
-    await loginPage.performLogin(user.email, user.password);
+    await app.loginPage.performLogin(user.email, user.password);
 
     // Verify URL
-    await expect(page).toHaveURL('/account');
+    await expect(app.page).toHaveURL('/account');
 
-    await page.context().storageState({ path: authFile });
+    await app.page.context().storageState({ path: authFile });
 
 })

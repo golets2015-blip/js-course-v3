@@ -1,5 +1,5 @@
-import { test, expect } from '@playwright/test';
-import { HomePage } from '../page objects/home.page';
+import { test } from '../fixtures/fixtures';
+import { expect } from '@playwright/test';
 
 const sortNameOptions = [
     {
@@ -32,15 +32,13 @@ const sortPriceOptions = [
 ]
 
 sortNameOptions.forEach(({ option, order, sortExpected }) => {
-    test(`Verify user can perform sorting by ${option} ${order}`, async ({ page }) => {
-        await page.goto('/');
+    test(`Verify user can perform sorting by ${option} ${order}`, async ({ app }) => {
+        await app.page.goto('/');
 
-        const homePage = new HomePage(page);
-
-        await homePage.selectSortOption(option);
+        await app.homePage.selectSortOption(option);
 
         await expect(async () => {
-            const actualNames = await homePage.getProductNames();
+            const actualNames = await app.homePage.getProductNames();
 
             const expectedNames = [...actualNames];
 
@@ -52,15 +50,13 @@ sortNameOptions.forEach(({ option, order, sortExpected }) => {
 });
 
 sortPriceOptions.forEach(({option, order, sortExpected}) => {
-    test(`Verify user can perform sorting by ${option} ${order}`, async ({ page }) => {
-        await page.goto('/');
+    test(`Verify user can perform sorting by ${option} ${order}`, async ({ app }) => {
+        await app.page.goto('/');
 
-        const homePage = new HomePage(page);
-
-        await homePage.selectSortOption(option);
+        await app.homePage.selectSortOption(option);
 
         await expect(async () => {
-            const actualPrices = await homePage.getProductPrice();
+            const actualPrices = await app.homePage.getProductPrice();
 
             const expectedPrices = [...actualPrices];
 

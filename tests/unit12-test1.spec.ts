@@ -1,38 +1,27 @@
-import { test, expect } from '@playwright/test';
-import { HomePage } from '../page objects/home.page';
-import { ProductPage } from '../page objects/product.page';
-import { CheckoutPage } from '../page objects/checkout.page';
-import { BasePage } from '../page objects/base.page';
+import { test } from '../fixtures/fixtures';
+import { expect } from '@playwright/test';
 
-test('Verify user can add product to cart', async ({page}) => {
-    await page.goto('/');
-
-    const homePage = new HomePage(page);
-
-    const productPage = new ProductPage(page);
-
-    const checkoutPage = new CheckoutPage(page);
-
-    const basePage = new BasePage(page);
+test('Verify user can add product to cart', async ({app}) => {
+    await app.page.goto('/');
 
     const productName = 'Slip Joint Pliers';
 
-    const alertMessage = basePage.alertMessage;
+    const alertMessage = app.basePage.alertMessage;
 
     //Click on the product "Slip Joint Pliers".
-    await homePage.clickProduct(productName);
+    await app.homePage.clickProduct(productName);
 
     //Verify URL contains https://practicesoftwaretesting.com/product.
-    await expect(page).toHaveURL(/product/);
+    await expect(app.page).toHaveURL(/product/);
 
     //Verify product name is "Slip Joint Pliers"
-    await expect(productPage.productName).toHaveText(productName);
+    await expect(app.productPage.productName).toHaveText(productName);
 
     //Verify product price is 9.17
-    await expect(productPage.unitPrice).toHaveText('9.17');
+    await expect(app.productPage.unitPrice).toHaveText('9.17');
 
     //Click "Add to Cart" button
-    await productPage.clickAddToCart();
+    await app.productPage.clickAddToCart();
 
     //Verify alert message is visible
     await expect(alertMessage).toBeVisible();
@@ -44,20 +33,20 @@ test('Verify user can add product to cart', async ({page}) => {
     await expect(alertMessage).toBeHidden({ timeout: 8000 });
 
     //Verify cart icon in navigation shows quantity = 1
-    await expect(productPage.header.cartQuantity).toHaveText('1');
+    await expect(app.productPage.header.cartQuantity).toHaveText('1');
 
     //Click on the cart icon in the navigation
-    await productPage.clickCartIcon();
+    await app.productPage.clickCartIcon();
 
     //Verify URL is https://practicesoftwaretesting.com/checkout.
-    await expect(page).toHaveURL('/checkout');
+    await expect(app.page).toHaveURL('/checkout');
 
     //Verify the number of products in the cart table equals 1
-    await expect(checkoutPage.productQuantity).toHaveValue('1');
+    await expect(app.checkoutPage.productQuantity).toHaveValue('1');
 
     //Verify product title in the cart is "Slip Joint Pliers"
-    await expect(checkoutPage.productTitle).toHaveText(productName);
+    await expect(app.checkoutPage.productTitle).toHaveText(productName);
 
     //Verify "Proceed to Checkout" button is visible
-    await expect(checkoutPage.proceedToCheckout).toBeVisible();
+    await expect(app.checkoutPage.proceedToCheckout).toBeVisible();
 })
