@@ -16,8 +16,11 @@ export class HomePage {
         this.productPrice = page.getByTestId('product-price');
     }
 
-    async clickProduct (productName: string): Promise <void> {
-        await this.productName.filter({ hasText: productName }).click();
+    async clickProduct(productName: string): Promise<void> {
+    await this.productName
+        .filter({ hasText: productName })
+        .first()
+        .click();
     }
 
     async selectSortOption(option: string): Promise<void> {
@@ -25,16 +28,24 @@ export class HomePage {
     }
 
     async getProductNames(): Promise<string[]> {
-        return await this.productName.allTextContents();
+    await this.productName.first().waitFor();
+
+    const names = await this.productName.allTextContents();
+
+    return names.map(name => name.trim());
     }
 
     async getProductPrice(): Promise<number[]> {
-        const prices = await this.productPrice.allTextContents();
-        return prices.map(price => Number(price));
+    await this.productPrice.first().waitFor();
+
+    const prices = await this.productPrice.allTextContents();
+
+    return prices.map(price =>
+        Number(price.replace('$', '').trim())
+    );
     }
 
     async selectCategory(category: string): Promise<void> {
         await this.page.getByLabel(category).check();
     }
-
 }

@@ -1,14 +1,11 @@
-import { test, expect } from '@playwright/test';
-import { AccountPage } from '../page objects/account.page';
+import { test } from '../fixtures/fixtures';
+import { expect } from '@playwright/test';
 
-test('Login with valid credentials', async ({ page }) => {
-    await page.goto('/account');
-
-    const accountPage = new AccountPage(page);
+test('Login with valid credentials', async ({ loggedInApp }) => {
 
     // Verify page title
-    await expect(accountPage.pageTitle).toHaveText('My account');
+    await expect(loggedInApp.accountPage.pageTitle).toHaveText('My account');
 
     // Verify username in the navigation bar
-    await expect(accountPage.header.navMenu).toHaveText('Jane Doe');
+    await expect(loggedInApp.accountPage.header.navMenu).toHaveText('Jack Howe');
 });
