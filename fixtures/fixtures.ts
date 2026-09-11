@@ -1,5 +1,6 @@
 import { test as base } from '@playwright/test';
 import { AllPages } from '../page objects/allPages.page';
+import { user } from '../testData/users';
 
 type MyFixtures = {
     app: AllPages;
@@ -18,11 +19,11 @@ export const test = base.extend<MyFixtures>({
     loggedInApp: async ({ browser, request }, use) => {
         const context = await browser.newContext();
         const resp = await request.post(
-            'https://api.practicesoftwaretesting.com/users/login',
+            `${process.env.API_URL}/users/login`,
             {
                 data: {
-                    email: 'customer2@practicesoftwaretesting.com',
-                    password: 'welcome01'
+                    email: user.email,
+                    password: user.password
                 }
             }
         );
