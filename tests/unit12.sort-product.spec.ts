@@ -32,37 +32,49 @@ const sortPriceOptions = [
 ]
 
 sortNameOptions.forEach(({ option, order, sortExpected }) => {
-    test(`Verify user can perform sorting by ${option} ${order}`, async ({ app }) => {
-        await app.page.goto('/');
+    test(`Verify user can perform sorting by ${option} ${order}`, {
+        tag: '@regression',
+    }, async ({ app }) => {
 
-        await app.homePage.selectSortOption(option);
+        await test.step(`Sort products by ${option}`, async () => {
+            await app.page.goto('/');
+            await app.homePage.selectSortOption(option);
+        });
 
-        await expect(async () => {
-            const actualNames = await app.homePage.getProductNames();
+        await test.step(`Verify products are sorted in ${order} order`, async () => {
+            await expect(async () => {
+                const actualNames = await app.homePage.getProductNames();
 
-            const expectedNames = [...actualNames];
+                const expectedNames = [...actualNames];
 
-            sortExpected(expectedNames);
+                sortExpected(expectedNames);
 
-            expect(actualNames).toEqual(expectedNames);
-        }).toPass();
+                expect(actualNames).toEqual(expectedNames);
+            }).toPass();
+        });
     });
 });
 
-sortPriceOptions.forEach(({option, order, sortExpected}) => {
-    test(`Verify user can perform sorting by ${option} ${order}`, async ({ app }) => {
-        await app.page.goto('/');
+sortPriceOptions.forEach(({ option, order, sortExpected }) => {
+    test(`Verify user can perform sorting by ${option} ${order}`, {
+        tag: '@regression',
+    }, async ({ app }) => {
 
-        await app.homePage.selectSortOption(option);
+        await test.step(`Sort products by ${option}`, async () => {
+            await app.page.goto('/');
+            await app.homePage.selectSortOption(option);
+        });
 
-        await expect(async () => {
-            const actualPrices = await app.homePage.getProductPrice();
+        await test.step(`Verify products are sorted in ${order} order`, async () => {
+            await expect(async () => {
+                const actualPrices = await app.homePage.getProductPrice();
 
-            const expectedPrices = [...actualPrices];
+                const expectedPrices = [...actualPrices];
 
-            sortExpected(expectedPrices);
+                sortExpected(expectedPrices);
 
-            expect(actualPrices).toEqual(expectedPrices);
-        }).toPass();
+                expect(actualPrices).toEqual(expectedPrices);
+            }).toPass();
+        });
     });
 });
